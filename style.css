@@ -62,3 +62,11 @@ input[type="number"]:focus {
 .index__link:hover {
 	background-color: #5899bf;
 }
+
+.import {
+	color: red;
+}
+
+.hidden {
+	display: none;
+}

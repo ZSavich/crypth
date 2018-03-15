@@ -37,14 +37,14 @@ var getQ = function(key) {
 	return totalArray;
 }
 
-var getKely = function(key) {
+var getKely = function(key,modul) {
 	var keyArray = key;
 	var totalArray = [];
 	for(var l = 0; l < keyArray.length; l++) {
 		totalArray[l] = [];
     for(var k = 0; k < 2; k++) {
     	var count = 0;
-    	count = (keyArray[l][k] * keyArray[l][k]) % 2;
+    	count = keyArray[l][k] % modul;
       totalArray[l][k] = count;
     }
 	}
@@ -55,10 +55,9 @@ var onButtonClick = function(evt) {
     evt.preventDefault();
 
     var keyQ = getQ(inputMessage);
-    var keyKely = getKely(keyQ);
     
     spanResult.innerHTML = "Matrix Q: <br>" + keyQ.join('<br>');
-    spanResultKely.innerHTML = "Kely(2): <br>" + keyKely.join('<br>');
+    spanResultKely.innerHTML = "GF(2): <br>" + getKely(keyQ,2).join('<br>') + "<br>GF(3): <br>" + getKely(keyQ,3).join('<br>') + "<br>GF(5): <br>" + getKely(keyQ,5).join('<br>') + "<br>GF(7): <br>" + getKely(keyQ,7).join('<br>');
 };
 
 btnCrypt.addEventListener("click", onButtonClick);

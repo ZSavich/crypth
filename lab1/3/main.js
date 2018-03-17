@@ -5,6 +5,17 @@ var inText = document.querySelector("#message");
 var btnSubmit = document.querySelector("#submit");
 var outText = document.querySelector(".result");
 
+var getPasteZero = function(message, length) {
+  var upgCodeMessage = message.split(' ');
+  for(var l = 0; l < upgCodeMessage.length; l++) {
+    var myString = '' + upgCodeMessage[l];
+    while(upgCodeMessage[l].length < length) {
+      upgCodeMessage[l] = "0" + upgCodeMessage[l];
+    }
+  }
+  return upgCodeMessage;
+}
+
 var onClickButton = function(evt) {
   evt.preventDefault();
   if(inText.value != "") {
@@ -13,19 +24,26 @@ var onClickButton = function(evt) {
     for(var i = 0; i < textArray.length; i++) {
       for(var j = 0; j < inTable.length; j++) {
         if(textArray[i] === " ") {
-          cryptMessage += outTable[26] + " ";
+          cryptMessage += outTable[26];
+          if(i+2 < textArray.length) {
+            cryptMessage +=  " ";
+          }
           break;
         }
          else if(textArray[i].toLowerCase() === inTable[j]) {
-          cryptMessage += outTable[j] + " ";
+          cryptMessage += outTable[j];
+          if(i+2 < textArray.length) {
+            cryptMessage +=  " ";
+          }
           break;
         }
       }
     }
+    var resultMessage = getPasteZero(cryptMessage, 2);
   } else {
     console.log("Enter your message!");
   }
-  outText.innerText = cryptMessage;
+  outText.innerText = resultMessage.join(' ');
 };
 
 btnSubmit.addEventListener("click", onClickButton);

@@ -4,6 +4,17 @@ var inText = document.querySelector("#message");
 var btnSubmit = document.querySelector("#submit");
 var outText = document.querySelector(".result");
 
+var getPasteZero = function(message, length) {
+  var upgCodeMessage = message.split(' ');
+  for(var l = 0; l < upgCodeMessage.length; l++) {
+    var myString = '' + upgCodeMessage[l];
+    while(upgCodeMessage[l].length < length) {
+      upgCodeMessage[l] = "0" + upgCodeMessage[l];
+    }
+  }
+  return upgCodeMessage;
+}
+
 var onClickButton = function(evt) {
   evt.preventDefault();
   if(inText.value != "") {
@@ -12,19 +23,27 @@ var onClickButton = function(evt) {
     for(var i = 0; i < textArray.length; i++) {
     	for(var j = 0; j < inTable.length; j++) {
     		if(textArray[i] === " ") {
-    			codeMessage += "26" + " ";
+    			codeMessage += "26";
+          if(i+2 < textArray.length) {
+            codeMessage +=  " ";
+          }
     			break;
     		}
     		 else if(textArray[i].toLowerCase() === inTable[j]) {
-          codeMessage += j + " ";
+          codeMessage += j;
+          if(i+2 < textArray.length) {
+            codeMessage +=  " ";
+          }
     			break;
     		}
     	}
     }
+
+    var resultMessage = getPasteZero(codeMessage, 2);
   } else {
   	console.log("Enter your message!");
   }
-  outText.innerText = codeMessage;
+  outText.innerText = resultMessage.join(' ');
 };
 
 btnSubmit.addEventListener("click", onClickButton);

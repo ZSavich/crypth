@@ -4,6 +4,17 @@ var inText = document.querySelector("#message");
 var btnSubmit = document.querySelector("#submit");
 var outText = document.querySelector(".result");
 
+var getPasteZero = function(message, length) {
+  var upgCodeMessage = message.split(' ');
+  for(var l = 0; l < upgCodeMessage.length; l++) {
+    var myString = '' + upgCodeMessage[l];
+    while(upgCodeMessage[l].length < length) {
+      upgCodeMessage[l] = "0" + upgCodeMessage[l];
+    }
+  }
+  return upgCodeMessage;
+}
+
 var onClickButton = function(evt) {
   evt.preventDefault();
   if(inText.value != "") {
@@ -21,10 +32,11 @@ var onClickButton = function(evt) {
         }
       }
     }
+    var resultMessage = getPasteZero(codeMessage, 6);
   } else {
     console.log("Enter your message!");
   }
-  outText.innerText = codeMessage;
+  outText.innerText = resultMessage.join(' ');
 };
 
 btnSubmit.addEventListener("click", onClickButton);
